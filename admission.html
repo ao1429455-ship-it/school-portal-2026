@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طلب الالتحاق الإلكتروني | منصة مدرسة التميز</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="School-Logo.png" alt="شعار المدرسة" class="header-logo">
+                مدرسة جمال عبدالناصر الرسميه للغات
+            </div>
+            <div class="login-btn"><a href="index.html">الرئيسيه</a></div>
+            <div class="login-btn"><a href="leaders.html">القيادات</a></div>
+            <div class="login-btn"><a href="vision.html">الرؤيه والرساله</a></div>
+            <div class="login-btn"><a href="activities.html">الانشطه</a></div>
+           
+
+
+            <div class="login-btn"><a href="admission.html">التقديم الالكتروني</a></div>
+            <div class="login-btn"><a href="contact.html">اتصل بنا</a></div>
+            <div class="log-btn"><a href="login.html">تسجيل الدخول</a></div>
+        </div>
+    </header>
+
+    
+    <main class="admission-section">
+        <h1 class="admission-title">بوابة القبول والتسجيل الإلكتروني</h1>
+        <p class="admission-subtitle">مرحباً بكم في مدرستنا المتميزه، يرجى تعبئة البيانات بدقة</p>
+
+        <form class="admission-form" action="https://formspree.io/f/xykarjvr" method="POST">
+            
+            <div class="form-section">
+                <h2>أولاً: بيانات الطالب الأساسية</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>اسم الطالب رباعي بالكامل</label>
+                        <input type="text" name="student_name" placeholder="أدخل الاسم كما في شهادة الميلاد" required>
+                    </div>
+                    <div class="form-group">
+                        <label>الرقم القومي للطالب</label>
+                        <input type="text" name="national_id" placeholder="أدخل الرقم القومي بدقة" required>
+                    </div>
+                    <div class="form-group">
+                        <label>المرحلة الدراسية المطلوبة</label>
+                        <select name="grade_level" required>
+                            <option value="">اختر المرحلة الدراسية...</option>
+                            <option value="primary">المرحلة الابتدائية</option>
+                            <option value="prep">المرحلة الإعدادية</option>
+                            <option value="secondary">المرحلة الثانوية</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>تاريخ الميلاد</label>
+                        <input type="date" name="birth_date" required>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="form-section">
+                <h2>ثانياً: بيانات التواصل مع ولي الأمر</h2>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>اسم ولي الأمر بالكامل</label>
+                        <input type="text" name="parent_name" placeholder="أدخل اسم ولي الأمر" required>
+                    </div>
+                    <div class="form-group">
+                        <label>رقم هاتف للتواصل (واتساب)</label>
+                        <input type="tel" name="whatsapp_number" placeholder="01xxxxxxxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label>البريد الإلكتروني</label>
+                        <input type="email" name="parent_email" placeholder="example@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>وظيفة ولي الأمر</label>
+                        <input type="text" name="parent_job" placeholder="أدخل المهنة" required>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="form-section">
+                <h2>ثالثاً: رفع المستندات الرسمية</h2>
+                <div class="upload-grid">
+                    <div class="upload-box">
+                        <p>شهادة ميلاد الطالب</p>
+                        <input type="file" name="birth_certificate" id="birth-cert" required>
+                        <label for="birth-cert" class="upload-label">اختيار ملف <span>لم يتم اختيار أي ملف</span></label>
+                    </div>
+                    <div class="upload-box">
+                        <p>صورة بطاقة ولي الأمر</p>
+                        <input type="file" name="parent_id" id="id-card" required>
+                        <label for="id-card" class="upload-label">اختيار ملف <span>لم يتم اختيار أي ملف</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-submit">
+                <button type="submit" class="btn-submit">تقديم الطلب الآن</button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+       
+        const fileInputs = document.querySelectorAll('.upload-box input[type="file"]');
+        fileInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                const labelSpan = this.parentElement.querySelector('.upload-label span');
+                if (this.files && this.files.length > 0) {
+                    labelSpan.innerText = "✓ تم اختيار: " + this.files[0].name;
+                    labelSpan.style.color = "#10b981";
+                }
+            });
+        });
+
+       
+       const admissionForm = document.querySelector('.admission-form');
+
+admissionForm.addEventListener('submit', function(e) {
+    
+    const studentName = this.querySelector('input[name="student_name"]').value;
+    const whatsappNumber = "201221493125"; 
+    
+    const message = `طلب تقديم جديد:
+    اسم الطالب: ${studentName}
+    تم إرسال الأوراق عبر الموقع. يرجى مراجعة البريد الإلكتروني.`;
+    
+    
+    window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`, '_blank');
+    
+    
+});
+
+        
+        
+    
+    
+
+
+
+      
+
+
+        
+    </script>
+    
+    
+    <footer class="site-footer">
+    <p>جميع الحقوق محفوظة © مدرسة جمال عبد الناصر الثانوية 2026</p>
+    <p>تم تطوير وإدارة المنصة التقنية بواسطة: 
+        <a href="developer.html" > Renad Ghazy Hasan </a>
+    </p>
+</footer>
+
+    
+    
+    
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم والسيطرة للنظام | الإدارة العامة</title>
+    <link rel="stylesheet" href="style.css">
+    
+   
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
+</head>
+
+<body class="dashboard-body">
+
+   
+    <aside class="sidebar admin-sidebar">
+        <div class="sidebar-header">
+            <h2 class="text-red-title">الإدارة العامة</h2>
+            <div class="student-avatar-box">
+                <div class="avatar-circle border-red-circle"></div>
+                <h3 id="sidebarAdminName">المدير العام للنظام</h3>
+                <span class="admin-badge-text">صلاحيات كاملة ✓</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="active">نظرة عامة</a></li>
+                <li><a href="#"class="active">إدارة المستخدمين</a></li>
+                <li><a href="#"class="active">إضافة فصول جديدة</a></li>
+                <li class="logout-item"><a href="login.html" onclick="localStorage.clear();">تسجيل الخروج</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    
+    <main class="dashboard-content">
+        <header class="content-header">
+            <h1>لوحة التحكم والسيطرة للنظام 🔒</h1>
+            <span class="server-badge">السيرفر متصل وآمن</span>
+        </header>
+
+        <section class="dashboard-stats-grid">
+            <div class="dash-stat-card border-red-top">
+                <span class="stat-val-num text-dark-blue">إدارة</span>
+                <p>إجمالي الحسابات</p>
+            </div>
+            <div class="dash-stat-card border-blue">
+                <span class="stat-val-num text-dark-blue">مباشر</span>
+                <p>نظام متصل</p>
+            </div>
+            <div class="dash-stat-card border-yellow full-width-card">
+                <span class="stat-val-num text-orange">99.9%</span>
+                <p>كفاءة استقرار المنصة</p>
+            </div>
+        </section>
+        
+        
+        
+        <section class="dashboard-section-block">
+    <h2>إضافة مستخدم جديد</h2>
+    <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+        <input type="text" id="newName" placeholder="اسم المستخدم">
+        <input type="text" id="newId" placeholder="كود المعرف (الرقم السري)">
+        <input type="text" id="newPass" placeholder="كلمة المرور">
+        <select id="newRole">
+            <option value="teachers">معلم</option>
+            <option value="students">طالب</option>
+        </select>
+        <button onclick="addUser()" class="btn-login-submit" style="padding: 5px 15px;">إضافة</button>
+    </div>
+</section>
+
+        
+        
+<!-- جدول الطلاب -->
+<section class="dashboard-section-block">
+    <h2 style="color: #6366f1;">قائمة الطلاب</h2>
+    <table class="dashboard-table">
+        <thead>
+            <tr><th>الاسم</th><th>كود الطالب</th><th>الإجراءات</th></tr>
+        </thead>
+        <tbody id="studentsTableBody"></tbody>
+    </table>
+</section>
+
+<!-- جدول المعلمين -->
+<section class="dashboard-section-block">
+    <h2 style="color: #6366f1;">قائمة المعلمين</h2>
+    <table class="dashboard-table">
+        <thead>
+            <tr><th>الاسم</th><th>كود المعلم</th><th>الإجراءات</th></tr>
+        </thead>
+        <tbody id="teachersTableBody"></tbody>
+    </table>
+</section>
+
+        
+    </main>
+
+   <script>
+    const firebaseConfig = {
+        databaseURL: "https://school-platform-f9f4a-default-rtdb.firebaseio.com"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+
+    window.addEventListener('DOMContentLoaded', function() {
+        const username = localStorage.getItem('loggedInUser');
+        const userRole = localStorage.getItem('userRole');
+
+        if (userRole !== 'admin') {
+            alert('عذراً، لا تملك صلاحيات الدخول');
+            window.location.href = 'index.html'; 
+            return;
+        }
+
+        const sidebarAdminName = document.getElementById('sidebarAdminName');
+        if (sidebarAdminName) {
+            sidebarAdminName.innerText = username;
+        }
+        
+        const mainHeader = document.querySelector('h1');
+        if (mainHeader) {
+            mainHeader.innerText = 'مرحباً بك مجدداً يا ' + username + '!';
+        }
+
+        loadUsers();
+    });
+
+    function loadUsers() {
+        const studentsBody = document.getElementById('studentsTableBody');
+        const teachersBody = document.getElementById('teachersTableBody');
+        
+        if (studentsBody) studentsBody.innerHTML = "";
+        if (teachersBody) teachersBody.innerHTML = "";
+
+        
+        database.ref('students').on('value', function(snapshot) {
+            if (studentsBody) studentsBody.innerHTML = "";
+            snapshot.forEach(function(child) {
+                const user = child.val();
+                const uName = user.name || "بدون اسم";
+                const uKey = child.key;
+
+                const row = '<tr>' +
+                            '<td>' + uName + '</td>' +
+                            '<td>' + uKey + '</td>' +
+                            '<td><button class="btn-delete-account" onclick="deleteUser(\'students\', \'' + uKey + '\')">حذف</button></td>' +
+                            '</tr>';
+                
+                if (studentsBody){
+                     studentsBody.insertAdjacentHTML('beforeend', row);
+                  }
+            });
+        });
+
+       
+        database.ref('teachers').on('value', function(snapshot) {
+            if (teachersBody) teachersBody.innerHTML = ""; 
+            snapshot.forEach(function(child) {
+                const user = child.val();
+                const uName = user.name || "بدون اسم";
+                const uKey = child.key;
+
+                const row = '<tr>' +
+                            '<td>' + uName + '</td>' +
+                            '<td>' + uKey + '</td>' +
+                            '<td><button class="btn-delete-account" onclick="deleteUser(\'teachers\', \'' + uKey + '\')">حذف</button></td>' +
+                            '</tr>';
+                
+                if (teachersBody){ 
+                    teachersBody.insertAdjacentHTML('beforeend', row);
+                    }
+            });
+        });
+    }
+
+    function deleteUser(type, id) {
+        if (confirm("تحذير: سيتم حذف هذا الحساب نهائياً من قاعدة البيانات!")) {
+            database.ref(type + '/' + id).remove()
+                .then(function() {
+                    alert("تم الحذف بنجاح!");
+                    location.reload();
+                })
+                .catch(function(error) {
+                    alert("حدث خطأ: " + error.message);
+                });
+        }
+    }
+    
+    function addUser() {
+        const name = document.getElementById('newName').value;
+        const id = document.getElementById('newId').value;
+        const pass = document.getElementById('newPass').value;
+        const type = document.getElementById('newRole').value;
+
+        if (!name || !id || !pass) {
+            alert("يرجى ملء جميع البيانات!");
+            return;
+        }
+
+        database.ref(type + '/' + id).set({
+            name: name,
+            password: pass
+        })
+        .then(function() {
+            alert("تم إضافة " + name + " بنجاح!");
+            location.reload();
+        })
+        .catch(function(error) {
+            alert("خطأ: " + error.message);
+        });
+    }
+</script>
+    
+    
+    
+    
+    
+    
+</body>
+</html>

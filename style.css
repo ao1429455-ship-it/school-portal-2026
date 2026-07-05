@@ -1,0 +1,2484 @@
+/* إعدادات الخطوط العامة والخلفية *//* تنسيق شريط التنقل */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background: #0f172a;
+    color: white;
+    width: 100%;
+    box-sizing: border-box; /* يضمن عدم خروج الشريط عن إطار الصفحة */
+}
+
+/* الشعار والاسم */
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #ffffff;
+    gap: 10px; /* تم التصحيح من gab إلى gap */
+}
+
+/* قائمة الروابط */
+.nav-links ul {
+    display: flex;
+    list-style: none;
+    gap: 15px; /* تقليل الفراغ قليلاً لضمان عدم التداخل */
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: #f59e0b;
+    border-bottom: 2px solid #f59e0b;
+}
+
+/* حاوية الزراير (اليمين) */
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.log-btn a, .login-btn a {
+    display: inline-block;
+    white-space: nowrap;
+    padding: 6px 15px;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 13px; /* تصغير الخط قليلاً ليناسب المساحة */
+    transition: 0.3s;
+}
+
+.log-btn a { background: #220fb2; }
+.login-btn a { background: #d18a11; }
+
+/* الجزء الأوسط (Hero) - تم تعديل المسافة العلوية لتعويض إلغاء fixed */
+.hero-section {
+    background-color: #1b2e4b;
+    color: #ffffff;
+    text-align: center;
+    padding: 100px 20px 80px 20px;
+}
+
+
+
+
+/* تنسيق الحاوية التي تجمع الكروت */
+.stats-wrap {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* مسافة مريحة بين الكروت */
+    margin-top: -50px; /* لرفع الكروت فوق خلفية القسم الأزرق */
+    padding: 0 20px;
+    flex-wrap: wrap; /* لجعل الكروت تنزل تحت بعض في الشاشات الصغيرة */
+}
+
+/* تنسيق الكرت نفسه */
+.stat-item {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 15px; /* حواف دائرية أنيقة */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* ظل ناعم لإعطاء عمق للكرت */
+    text-align: center;
+    min-width: 180px;
+    transition: transform 0.3s ease; /* حركة انسيابية عند الماوس */
+}
+
+/* تأثير تفاعلي عند مرور الماوس على الكرت */
+.stat-item:hover {
+    transform: translateY(-10px); /* رفع الكرت قليلاً عند المرور عليه */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* تنسيق الرقم */
+.num {
+    font-size: 36px;
+    font-weight: 800;
+    color: #d18a11; /* اللون الذهبي/البرتقالي المميز للمدرسة */
+    margin-bottom: 5px;
+}
+
+/* تنسيق النص التوضيحي تحت الرقم */
+.label {
+    color: #4b5563; /* لون رمادي مريح للعين */
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ /* ==========================================================================
+   تنسيقات صفحة القيادات المحدثة (خلفية كحلي للأفيس، بريد، وزر حجز)
+   ========================================================================== */
+
+#leaders-page{
+        
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                    url('School-Logo.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh;
+    }
+
+
+
+
+
+.leaders-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.page-title {
+    color: #ffffff; /* لون أبيض نقي */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* ظل غامق لجعل النص يبرز */
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.page-subtitle {
+    color: #d5bfff;
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+/* توزيع الكروت (تلقائياً ستترتب الكروت في شبكة متناسقة بـ 3 أعمدة أو أقل حسب حجم الشاشة) */
+.leaders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+    gap: 30px;
+    justify-content: center;
+}
+
+/* هيكل الالتفاف ثلاثي الأبعاد لكروت الـ Flip */
+.flip-card {
+    background-color: transparent;
+    width: 100%;
+    min-height: 380px; /* زيادة الارتفاع قليلاً لتستوعب السيرة الذاتية والأزرار بالخلف */
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 25px;
+}
+
+/* الوجه الأمامي (أبيض كلاسيكي ثابت كالصورة) */
+.flip-card-front {
+    background: rgba(255, 255, 255, 0.45) !important; /* خلفية بيضاء شبه شفافة */
+    backdrop-filter: blur(10px) !important;          /* تأثير ضبابي للزجاج خلف الكارت */
+    -webkit-backdrop-filter: blur(10px) !important;   /* لدعم متصفحات آيفون */
+    border: 1px solid rgba(255, 255, 255, 0.4) !important; /* إطار أبيض ناعم كحافة الزجاج */
+    border-radius: 20px !important;                   /* حواف دائرية ناعمة */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15) !important; /* ظل يعطي عمقاً ثلاثي الأبعاد */
+    transition: transform 0.3s ease !important;
+}
+
+/* تأثير رائع عند تحريك الماوس فوق الكارت */
+flip-card-front:hover {
+    transform: translateY(-10px) !important; /* يرتفع الكارت للأعلى قليلاً */
+    background: rgba(255, 255, 255, 0.55) !important;
+}
+
+
+
+.avatar-placeholder {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 25px;
+}
+
+.leader-name {
+    color: #111e38;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+/* شارات المناصب الأمامية الملونة */
+.leader-badge {
+    padding: 8px 24px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.badge-orange { background-color: #fff6e9; color: #fca311; }
+.badge-yellow { background-color: #fff9e6; color: #ffb703; }
+.badge-blue-tag { background-color: #eef2ff; color: #4f46e5; }
+
+/* 🌟 الوجه الخلفي (اللون الكحلي الداكن الفخم المتطابق مع لقطة الشاشة) 🌟 */
+.flip-card-back {
+    background-color: #0b1c3a; /* كحلي داكن جداً */
+    color: #ffffff;
+    transform: rotateY(180deg);
+}
+
+/* عنوان السيرة الذاتية البرتقالي المصفر */
+.back-title {
+    color: #ffb703;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+/* نص السيرة الذاتية الأبيض الصغير المتناسق */
+.card-back-text {
+    font-size: 14px;
+    color: #e2e8f0;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+/* البريد الإلكتروني في الخلف */
+.back-email {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 25px;
+    display: inline-block;
+    border-bottom: 1px dashed rgba(255,255,255,0.3);
+    padding-bottom: 2px;
+}
+
+
+
+/* ==========================================================================
+   تنسيق الصورة الشخصية للقيادات على كروت الـ Flip (من الخارج)
+   ========================================================================== */
+
+.leader-photo {
+    width: 110px;          /* تحديد عرض ثابت ومناسب للصورة */
+    height: 110px;         /* تحديد ارتفاع مطابق تماماً للعرض */
+    border-radius: 50%;    /* يجعل الزوايا دائرية بنسبة 100% لتصبح الصورة دائرية تماماً */
+    object-fit: cover;     /* أهم خاصية: تقوم بقص وتوسيط الصورة ذاتياً لمنع تمططها */
+    margin-bottom: 20px;   /* إيجاد مسافة عمودية متناسقة بين الصورة والاسم الأسفل منها */
+    border: 3px solid #f1f5f9; /* إضافة إطار (Border) رمادي خفيف وجميل حول الدائرة */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* إضافة ظل خفيف خلف الصورة لإبرازها عن الكرت */
+}
+
+
+
+
+
+
+
+/* التوافق مع شاشات الهواتف الذكية */
+@media (max-width: 768px) {
+    .leaders-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+
+
+/* --- تنسيقات صفحة رؤية ورسالة مدرسة جمال عبد الناصر الرسمية للغات --- */
+
+.school-administration-info {
+    margin-bottom: 30px;
+}
+
+.school-administration-info h3 {
+    color: #666666;
+    font-size: 16px;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.school-administration-info h2 {
+    color: #111e38;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* ترتيب الكروت بشكل عمودي مريح للقراءة وشبيه بالمنشور الأصلي */
+.vision-grid-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    max-width: 800px;
+    margin: 40px auto 0 auto;
+}
+
+/* ضبط الخطوط الفاصلة تحت العناوين الرئيسية داخل الكرت كالصورة */
+.card-line {
+    width: 120px;
+    height: 3px;
+    background-color: #111e38;
+    margin: 10px auto 25px auto;
+    border-radius: 2px;
+}
+
+.section-card-title {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.text-orange-color { color: #fca311; }
+.text-blue-color { color: #065f46; }
+
+.border-orange-top { border-top: 5px solid #fca311; }
+.border-blue-top { border-top: 5px solid #065f46; }
+
+/* نص الرؤية العريض والمميز */
+.vision-text-highlight {
+    font-size: 18px;
+    color: #111e38;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+/* تنسيق قائمة نقاط رسالة المدرسة المحاذية لليمين */
+.message-list-style {
+    list-style: none; /* إلغاء النقاط الافتراضية المزعجة للمتصفح */
+    text-align: right;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.message-list-style li {
+    font-size: 16px;
+    color: #111e38;
+    position: relative;
+    line-height: 1.6;
+}
+
+/* إضافة نجمة أو علامة مميزة منسقة بدلاً من النقطة التقليدية */
+.message-list-style li::before {
+    content: "✦";
+    color: #fca311;
+    font-weight: bold;
+    display: inline-block;
+    width: 20px;
+    margin-left: 5px;
+}
+
+
+
+
+/* ابحثي عن هذه الأسطر في ملف الـ CSS وقومي بتحديثها أو إضافتها في النهاية */
+
+.main-title {
+    color: #1d4ed8;
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center; /* 🌟 قمنا بإضافة هذا السطر لتوسيط العنوان الكبير */
+}
+
+
+
+
+
+
+
+/* التوافق مع شاشات الموبايل ليصبح التصميم عمودياً */
+@media (max-width: 768px) {
+    .vision-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    .vision-card {
+        width: 100%;
+    }
+    .timeline-years {
+        gap: 60px;
+    }
+}
+
+
+/* ==========================================================================
+   كود الـ CSS المحدث والآمن لصفحة الأنشطة والفعاليات (حل مشكلة التبعثر)
+   ========================================================================== */
+
+
+#activity-page {
+        
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                    url('School-Logo.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        min-height: 100vh; 
+    }
+
+
+
+
+
+/* الحاوية والتقسيم الرئيسي للقسم */
+.activities-section {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.activities-title {
+    color: #ffffff; /* اللون الكحلي الداكن الموحد */
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.activities-subtitle {
+    color: #ceff00;
+    font-size: 16px;
+    margin-bottom: 50px;
+}
+
+/* 🌟 شبكة التوزيع الاحترافية (تضمن صفوفاً مصفوفة بدقة بـ 3 أعمدة متوازية) */
+.activities-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 كروت متساوية تماماً بجانب بعضها */
+    gap: 30px; /* مسافة أمان ثابتة بين الكروت */
+    justify-content: center;
+    width: 100%;
+}
+
+/* 🌟 تصميم كرت النشاط الثابت (منع التمدد العمودي العشوائي) */
+.activity-card{
+    background: rgba(255, 255, 255, 0.6) !important; /* خلفية بيضاء شبه شفافة */
+    backdrop-filter: blur(15px) !important;          /* تأثير الضبابية */
+    -webkit-backdrop-filter: blur(15px) !important;   /* دعم متصفحات ابل */
+    border: 1px solid rgba(255, 255, 255, 0.3) !important; /* إطار شفاف */
+    border-radius: 20px !important;                   /* حواف دائرية */
+    overflow: hidden;                                /* لضمان عدم خروج الصورة عن الحواف الدائرية */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+/* تنسيق النصوص داخل الكارت لتكون واضحة */
+.card p, .card h3 {
+    color: #003366 !important; /* لون أزرق داكن لضمان القراءة على الخلفية الشفافة */
+}
+
+/* 🌟 التنسيق الاحترافي لصور الأنشطة الحقيقية */
+.activity-img {
+    width: 100%;
+    height: 200px; /* الارتفاع الثابت للمساحة المخصصة للصورة */
+    object-fit: cover; /* خاصية لمنع تمطط أو تشويه أبعاد صور الأنشطة */
+    display: block;
+}
+
+/* محتوى تفاصيل الكرت الداخلي والنصوص */
+.activity-content {
+    padding: 25px;
+}
+
+/* شارة تصنيف النشاط العلوي الصغير */
+.activity-tag {
+    color: #8c9ba5;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+/* اسم الفعالية أو النشاط */
+.activity-name {
+    color: #111e38;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    line-height: 1.4;
+}
+
+/* وصف وتفاصيل النشاط */
+.activity-desc {
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* --- تنسيقات لوحة شرف المراحل الثلاثة المطابقة للصورة --- */
+
+.tops-section-block {
+    margin-top: 60px;
+    padding: 20px;
+}
+
+/* شبكة التوزيع (3 أعمدة متساوية تماماً) */
+.tops-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* تصميم الكرت ذو الحواف المنحنية الفخمة والخلفية الرمادية الفاتحة جداً كالصورة */
+.honor-card {
+    background-color: #f1f3f4; /* نفس درجة اللون المائل للرمادي في الصورة */
+    border-radius: 20px;       /* حواف دائرية واضحة جداً كالصورة */
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    display: flex;
+    flex-direction: column;
+    text-align: center;        /* النصوص متمركزة في المنتصف عمودياً */
+    border: 1px solid #e2e8f0;
+}
+
+
+
+/* تنسيق الكارت بتأثير زجاجي */
+.honor-card {
+    background: rgba(255, 255, 255, 0.6) !important; /* خلفية بيضاء شبه شفافة */
+    backdrop-filter: blur(10px) !important;          /* تأثير الضبابية */
+    -webkit-backdrop-filter: blur(15px) !important;   /* دعم متصفحات ابل */
+    border: 1px solid rgba(255, 255, 255, 0.3) !important; /* إطار شفاف */
+    border-radius: 20px !important;                   /* حواف دائرية */
+    overflow: hidden;                                /* لضمان عدم خروج الصورة عن الحواف الدائرية */
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+/* تنسيق النصوص داخل الكارت لتكون واضحة */
+.card p, .card h3 {
+    color: #003366 !important; /* لون أزرق داكن لضمان القراءة على الخلفية الشفافة */
+}
+
+
+
+
+/* حاوية الصورة لضبط الموضع النسبي للبادج الأصفر الصغير */
+.honor-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px; /* الارتفاع المتناسق للصورة */
+}
+
+/* صورة الكرت */
+.honor-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* لمنع تمطط أبعاد الصورة */
+    display: block;
+}
+
+/* الشارة الصفراء الصغيرة في زاوية الصورة (الأول) */
+.badge-corner-yellow {
+    position: absolute;
+    top: 15px;
+    left: 15px; /* متموضعة في الزاوية العلوية */
+    background-color: #ffb703; /* اللون الأصفر الذهبي */
+    color: #111e38;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* محتوى الكرت السفلي والنصوص */
+.honor-card-content {
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+/* البادج الأصفر البيضاوي في المنتصف (لوحة الشرف) */
+.badge-center-yellow {
+    background-color: #ffb703;
+    color: #111e38;
+    padding: 6px 25px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 20px; /* حواف بيضاوية دائرية بالكامل */
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 5px;
+}
+
+/* عنوان المرحلة التعليمية */
+.honor-stage-title {
+    color: #111e38;
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* وصف وتفاصيل التكريم */
+.honor-stage-desc {
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 90%;
+}
+
+
+
+
+
+
+/* --- تنسيقات نافذة تكبير الصور (Lightbox) --- */
+
+.lightbox {
+    display: none; /* مخفية افتراضياً */
+    position: fixed;
+    z-index: 2000; /* لتظهر فوق الهيدر وكل عناصر الموقع */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(11, 28, 58, 0.9); /* خلفية كحلية داكنة معتمة فخمة متناسقة مع الموقع */
+    justify-content: center;
+    align-items: center;
+    cursor: zoom-out; /* مؤشر الماوس للإغلاق */
+}
+
+/* تصميم الصورة الكبيرة عند تكبيرها */
+.lightbox-content {
+    max-width: 85%;
+    max-height: 85%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    animation: zoomInAnimation 0.3s ease; /* أنيميشن فتح ناعم */
+}
+
+/* زر الإغلاق (علامة X) في الأعلى */
+.close-lightbox {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: #ffffff;
+    font-size: 45px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-lightbox:hover {
+    color: #ffb703; /* يتغير للأصفر عند الحوم فوقه */
+}
+
+/* تأثير حركة التكبير الناعمة (Zoom In) */
+@keyframes zoomInAnimation {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 📱 التوافق التام الذكي مع شاشات الهواتف الذكية */
+@media (max-width: 992px) {
+    .activities-grid {
+        grid-template-columns: repeat(2, 1fr); /* كرتين بجانب بعضهما في الشاشات المتوسطة */
+    }
+}
+
+@media (max-width: 650px) {
+    .activities-grid {
+        grid-template-columns: 1fr; /* كرت واحد عمودي كامل في شاشات الموبايل */
+        gap: 20px;
+    }
+    .activities-title {
+        font-size: 28px;
+    }
+}
+
+
+
+
+
+
+/* --- تنسيقات صفحة التقديم الإلكتروني --- */
+
+.admission-section {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.admission-title {
+    color: #111e38;
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.admission-subtitle {
+    color: #666666;
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.admission-form {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+}
+
+.form-section {
+    margin-bottom: 40px;
+}
+
+.form-section h2 {
+    color: #111e38;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    border-right: 4px solid #ffb703;
+    padding-right: 10px;
+}
+
+.section-note {
+    color: #888888;
+    font-size: 13px;
+    margin-top: -15px;
+    margin-bottom: 25px;
+}
+
+/* تقسيم المدخلات إلى عمودين */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.form-group label {
+    color: #333333;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+/* تنسيق خانات الكتابة والقوائم المنسدلة */
+.form-group input, .form-group select {
+    padding: 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    font-size: 14px;
+    color: #333333;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #111e38;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(17, 30, 56, 0.05);
+}
+
+/* تنسيق صناديق رفع الملفات المقطعة الحدود */
+.upload-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.single-upload {
+    grid-template-columns: 1fr;
+}
+
+.upload-box {
+    border: 2px dashed #cbd5e1;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    background-color: #f8fafc;
+}
+
+.upload-box p {
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.upload-box input[type="file"] {
+    display: none; /* إخفاء زر الرفع الافتراضي لتجميله */
+}
+
+.upload-label {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    color: #666666;
+}
+
+.upload-label span {
+    color: #94a3b8;
+    margin-right: 5px;
+}
+
+/* زر إرسال الاستمارة */
+.form-submit {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background-color: #111e38;
+    color: #ffffff;
+    padding: 14px 40px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #1b2e4b;
+}
+
+/* توافق النموذج مع الهواتف الذكية */
+@media (max-width: 768px) {
+    .form-grid, .upload-grid {
+        grid-template-columns: 1fr;
+    }
+    .admission-form {
+        padding: 20px;
+    }
+}
+
+
+
+
+
+/* --- تنسيقات صفحة العيادة المدرسية --- */
+
+.clinic-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.clinic-title {
+    color: #111e38;
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.clinic-subtitle {
+    color: #666666;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* تقسيم الكروت بالتساوي بجانب بعضها */
+.clinic-grid {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.clinic-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 35px;
+    flex: 1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    text-align: right;
+}
+
+.clinic-card h2 {
+    color: #111e38;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.card-note {
+    color: #888888;
+    font-size: 13px;
+    margin-bottom: 25px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.clinic-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.clinic-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.clinic-group label {
+    color: #111e38;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.clinic-group input, .clinic-group select {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: #f8fafc;
+    font-size: 14px;
+    outline: none;
+}
+
+/* أزرار الإرسال الملونة كالصورة */
+.btn-dark-submit {
+    background-color: #111e38;
+    color: #ffffff;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-orange-submit {
+    background-color: #ffb703;
+    color: #111e38;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* تنسيق جدول المتابعة الطبية اليومية */
+.table-section {
+    margin-top: 40px;
+}
+
+.table-title {
+    color: #111e38;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+th, td {
+    padding: 18px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #111e38;
+    font-weight: bold;
+}
+
+td {
+    color: #475569;
+}
+
+/* ألوان الحالات الخاصة بالجدول */
+.status-red {
+    color: #dc2626;
+    font-weight: bold;
+}
+
+.status-green {
+    color: #16a34a;
+    font-weight: bold;
+}
+
+/* التوافق مع الشاشات الصغيرة للموبايل */
+@media (max-width: 768px) {
+    .clinic-grid {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
+/* --- تنسيقات صفحة المكتبة الرقمية --- */
+
+.library-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.library-title {
+    color: #111e38;
+    font-size: 34px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.library-subtitle {
+    color: #777777;
+    font-size: 16px;
+    margin-bottom: 40px;
+}
+
+/* تصميم شريط البحث البيضاوي */
+.search-container {
+    max-width: 600px;
+    margin: 0 auto 50px auto;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 15px 30px;
+    border: 2px solid #111e38;
+    border-radius: 50px; /* حواف دائرية بالكامل */
+    font-size: 15px;
+    outline: none;
+    text-align: center;
+    background-color: #f8fafc;
+    transition: all 0.3s;
+}
+
+.search-container input:focus {
+    background-color: #ffffff;
+    box-shadow: 0 4px 15px rgba(17, 30, 56, 0.1);
+}
+
+/* شبكة الكروت (كتابين بجانب بعضهما) */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.book-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+/* إعدادات أغلفة الكتب الملونة */
+.book-cover {
+    width: 100%;
+    height: 180px;
+}
+
+.cover-blue   { background-color: #1a365d; }
+.cover-dark   { background-color: #0f172a; }
+.cover-green  { background-color: #065f46; }
+.cover-orange { background-color: #7c2d12; }
+
+.book-info {
+    padding: 25px;
+}
+
+.book-title {
+    color: #111e38;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.book-author, .book-tag {
+    color: #888888;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+/* شريط التحكم السفلي داخل الكرت */
+.book-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 15px;
+}
+
+.status-available {
+    color: #2563eb;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.status-unavailable {
+    color: #ea580c;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* أزرار الحجز */
+.btn-borrow {
+    background-color: #111e38;
+    color: #ffffff;
+    padding: 8px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-borrow:hover {
+    background-color: #1b2e4b;
+}
+
+/* تصميم الزر المطفأ للكتب غير المتاحة */
+.btn-borrow.disabled {
+    background-color: #e2e8f0;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* التوافق مع الهواتف الذكية */
+@media (max-width: 768px) {
+    .books-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+
+
+
+/* --- تنسيقات صفحة اتصل بنا --- */
+
+.contact-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+.contact-title {
+    color: #111e38;
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.contact-subtitle {
+    color: #666666;
+    font-size: 16px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* توزيع الكرتين بشكل متجاور */
+.contact-grid {
+    display: flex;
+    gap: 40px;
+}
+
+.contact-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 35px;
+    flex: 1;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+    text-align: right;
+}
+
+.contact-card h2 {
+    color: #111e38;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-group label {
+    color: #111e38;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.contact-group input, .contact-group select, .contact-group textarea {
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background-color: #f8fafc;
+    font-size: 14px;
+    outline: none;
+    font-family: inherit;
+}
+
+.contact-group textarea {
+    resize: none; /* لمنع المستخدم من تغيير حجم المربع وإفساد التصميم */
+}
+
+/* زر إرسال الرسالة الأزرق الداكن */
+.btn-send {
+    background-color: #111e38;
+    color: #ffffff;
+    padding: 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-send:hover {
+    background-color: #1b2e4b;
+}
+
+/* تنسيق كرت القنوات المباشرة */
+.direct-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.info-item {
+    margin-bottom: 25px;
+}
+
+.info-item h3 {
+    color: #111e38;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.info-item p {
+    color: #555555;
+    font-size: 14px;
+}
+
+.time-note {
+    color: #888888;
+    font-size: 12px;
+    margin-right: 5px;
+}
+
+.email-text {
+    color: #2563eb;
+}
+
+/* صندوق الخريطة وزر الموقع الداخلي */
+.map-placeholder {
+    background-color: #cbd5e1;
+    border: 1px solid #111e38;
+    border-radius: 8px;
+    height: 180px;
+    margin-top: auto; /* ليدفع الصندوق لأسفل الكرت تماماً */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-map {
+    background-color: #111e38;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* التوافق الكامل مع الهواتف الذكية */
+@media (max-width: 768px) {
+    .contact-grid {
+        flex-direction: column;
+    }
+}
+
+
+
+
+
+
+
+/* --- تنسيقات صفحة تسجيل الدخول الموحدة --- */
+
+/* إعداد خلفية زرقاء داكنة كاملة لصفحة اللوجن فقط */
+.login-body {
+    background-color: #0b1c3a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* الكرت الأبيض المتمركز في المنتصف */
+.login-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 520px;
+    padding: 50px 40px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.login-main-title {
+    color: #111e38;
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.login-subtitle {
+    color: #888888;
+    font-size: 14px;
+    margin-bottom: 35px;
+}
+
+.login-main-form {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+}
+
+.login-field-group {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.login-field-group label {
+    color: #111e38;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.login-field-group input, .login-field-group select {
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.login-field-group input:focus, .login-field-group select:focus {
+    border-color: #111e38;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(17, 30, 56, 0.05);
+}
+
+/* سطر الخيارات التحتية لنموذج الدخول */
+.login-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #555555;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #fca311; /* لون النسيان الأصفر الموضح بالصورة */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* زر دخول آمن العريض */
+.btn-login-submit {
+    background-color: #111e38;
+    color: #ffffff;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.btn-login-submit:hover {
+    background-color: #1b2e4b;
+}
+
+/* رابط العودة للموقع المتموضع بالأسفل */
+.back-to-home {
+    margin-top: 15px;
+}
+
+.back-to-home a {
+    color: #111e38;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.back-to-home a:hover {
+    border-color: #111e38;
+}
+
+/* تعديل للهواتف لضمان تناسق الهوامش */
+@media (max-width: 480px) {
+    .login-container {
+        padding: 35px 20px;
+    }
+}
+
+
+
+
+
+
+
+/* --- تنسيقات لوحة تحكم فضاء الطالب --- */
+
+.dashboard-body {
+    display: flex;
+    background-color: #f3f4f6;
+    min-height: 100vh;
+}
+
+/* القائمة الجانبية */
+.sidebar {
+    width: 280px;
+    background-color: #0b1c3a;
+    color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 20px;
+    border-left: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-header h2 {
+    color: #fca311;
+    font-size: 18px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.student-avatar-box {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.avatar-circle {
+    width: 70px;
+    height: 70px;
+    background-color: #cbd5e1;
+    border-radius: 50%;
+    margin: 0 auto 15px auto;
+}
+
+.student-avatar-box h3 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.student-grade {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sidebar-nav ul li a {
+    color: #cbd5e1;
+    text-decoration: none;
+    padding: 12px 15px;
+    display: block;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+}
+
+.sidebar-nav ul li a:hover, .sidebar-nav ul li a.active {
+    background-color: rgba(255,255,255,0.05);
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.logout-item a {
+    color: #ef4444 !important;
+    margin-top: 30px;
+}
+
+/* المحتوى الرئيسي للوحة التحكم */
+.dashboard-content {
+    flex: 1;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content-header h1 {
+    color: #111e38;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+.current-day-badge {
+    background-color: #0b1c3a;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+/* كروت الإحصائيات الدائرية المربعة */
+.dashboard-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.dash-stat-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.stat-val-num {
+    font-size: 36px;
+    font-weight: bold;
+    color: #111e38;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-val-num.text-orange { color: #fca311; }
+
+.dash-stat-card p {
+    color: #666666;
+    font-size: 13px;
+}
+
+/* البلوكات العامة للمحتوى */
+.dashboard-section-block {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+}
+
+.dashboard-section-block h2 {
+    color: #111e38;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+/* جدول الحصص الأفقي الملون */
+.schedule-timeline {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.schedule-item {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.schedule-item .time {
+    color: #111e38;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.schedule-item .subject {
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.badge-blue { background-color: #eff6ff; color: #2563eb; }
+.badge-purple { background-color: #faf5ff; color: #9333ea; }
+.badge-cyan { background-color: #ecfeff; color: #0891b2; }
+.badge-orange { background-color: #fff7ed; color: #ea580c; }
+.text-gray { color: #94a3b8; font-size: 13px; padding: 10px; }
+
+/* جدول الدرجات المخصص داخل لوحة التحكم */
+.dashboard-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dashboard-table th, .dashboard-table td {
+    padding: 15px;
+    text-align: center;
+    font-size: 14px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.dashboard-table th {
+    background-color: #f8fafc;
+    color: #666666;
+    font-weight: normal;
+}
+
+.grade-bold {
+    font-weight: bold;
+    color: #111e38;
+}
+
+.grade-badge {
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.grade-badge.excellent { color: #16a34a; background-color: #f0fdf4; }
+.grade-badge.very-good { color: #2563eb; background-color: #f0f6ff; }
+
+.download-center {
+    margin-top: 10px;
+}
+
+/* التوافق مع الشاشات المتجاوبة */
+@media (max-width: 1024px) {
+    .dashboard-body { flex-direction: column; }
+    .sidebar { width: 100%; }
+    .dashboard-stats-grid { grid-template-columns: 1fr; }
+    .schedule-timeline { flex-direction: column; gap: 20px; }
+}
+
+
+
+
+
+
+
+
+
+
+/* --- تنسيقات لوحة تحكم فضاء ولي الأمر --- */
+
+.blue-badge {
+    background-color: #111e38 !important;
+}
+
+/* حدود الكروت الملونة الموضحة بالصورة */
+.border-green { border-top: 4px solid #10b981; }
+.border-blue { border-top: 4px solid #2563eb; }
+.border-yellow { border-top: 4px solid #fca311; }
+
+.text-green { color: #10b981 !important; }
+.text-blue-dark { color: #1e3a8a; }
+
+.flex-row-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* ضبط محاذاة جداول ولي الأمر لليمين لقراءة الملاحظات بدقة */
+.aligned-right-table th, .aligned-right-table td {
+    text-align: right !important;
+    padding: 16px;
+}
+
+.font-bold {
+    font-weight: bold;
+    color: #111e38;
+}
+
+.text-muted {
+    color: #666666;
+    font-size: 13px;
+}
+
+/* توزيع مربعات البيانات الطبية المستطيلة */
+.medical-grid-info {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.med-item {
+    background-color: #f8fafc;
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1px solid #e2e8f0;
+}
+
+.med-item span {
+    color: #666666;
+    font-size: 13px;
+}
+
+.med-item strong {
+    color: #111e38;
+    font-size: 15px;
+}
+
+/* بادج فصيلة الدم الأحمر المستوحي من الصورة */
+.blood-badge {
+    background-color: #ef4444;
+    color: #ffffff !important;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+/* التوافق مع شاشات الموبايل المتجاوبة للملف الطبي */
+@media (max-width: 900px) {
+    .medical-grid-info {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .medical-grid-info {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+/* --- تنسيقات لوحة تحكم فضاء المعلم --- */
+
+.border-cyan { border-top: 4px solid #0891b2; }
+
+/* أزرار الحضور والغياب المتجاورة */
+.attendance-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn-attendance {
+    padding: 6px 20px;
+    border: 1px solid #cbd5e1;
+    background-color: #ffffff;
+    color: #666666;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* حالة تفعيل زر حاضر باللون الأخضر كالصورة */
+.btn-attendance.present.active {
+    background-color: #10b981;
+    border-color: #10b981;
+    color: #ffffff;
+}
+
+/* حالة تفعيل زر غائب باللون الوردي/الأحمر الفاتح كالصورة */
+.btn-attendance.absent.active {
+    background-color: #fee2e2;
+    border-color: #f87171;
+    color: #ef4444;
+}
+
+/* خانة إدخال الدرجات داخل الجدول */
+.table-input-score {
+    width: 100px;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    text-align: center;
+    outline: none;
+    font-size: 13px;
+    background-color: #f8fafc;
+}
+
+.table-input-score:focus {
+    border-color: #111e38;
+    background-color: #ffffff;
+}
+
+.status-waiting {
+    color: #94a3b8;
+    font-size: 13px;
+    display: block;
+    text-align: center;
+}
+
+/* تنسيق زر الحفظ العريض المستوحى من أسفل الصورة */
+.teacher-submit-container {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.btn-teacher-save {
+    width: 100%;
+    background-color: #0b1c3a;
+    color: #ffffff;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-teacher-save:hover {
+    background-color: #162a4e;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* --- تنسيقات لوحة السيطرة والإدارة العامة --- */
+
+.text-red-title {
+    color: #ef4444 !important;
+    font-weight: bold;
+}
+
+.border-red-circle {
+    border: 2px solid #ef4444;
+}
+
+.admin-badge-text {
+    color: #ef4444;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* شارة السيرفر متصل وآمن الحمراء العلوية كالصورة */
+.server-badge {
+    background-color: #ef4444;
+    color: #ffffff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.border-red-top { border-top: 4px solid #ef4444; }
+.text-dark-blue { color: #111e38; }
+
+/* أزرار حذف الحسابات الوردية المفتوحة بالصورة */
+.btn-delete-account {
+    background-color: #fee2e2;
+    color: #ef4444;
+    border: 1px solid #fca5a5;
+    padding: 6px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    transition: all 0.2s;
+}
+
+.btn-delete-account:hover {
+    background-color: #fca5a5;
+    color: #ffffff;
+}
+
+/* استمارة إضافة الفصول */
+.admin-insert-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.admin-input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.admin-input-group label {
+    color: #111e38;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.admin-input-group input {
+    padding: 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background-color: #ffffff;
+    font-size: 14px;
+    outline: none;
+}
+
+/* الزر الأحمر العريض لتفعيل وتدشين الفصل الموضح في الصورة */
+.btn-admin-launch {
+    width: 100%;
+    background-color: #ef4444;
+    color: #ffffff;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 10px;
+}
+
+.btn-admin-launch:hover {
+    background-color: #dc2626;
+}
+
+
+
+
+/* --- تنسيقات شعار المدرسة الجديد --- */
+
+/* ضبط الهيدر العلوي ليصبح الشعار والنص بجانب بعضهما */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* مسافة بين الشعار والنص */
+}
+
+/* حجم الشعار الصغير في الشريط العلوي */
+.header-logo {
+    width: 45px;
+    height: 45px;
+    object-fit: contain; /* للحفاظ على أبعاد الشعار بدون تمطيط */
+}
+
+/* حجم الشعار الأكبر المتمركز في الحتة الزرقاء اللي في النص */
+.hero-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 20px; /* مسافة بين الشعار والعنوان الأساسي */
+    display: inline-block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- تنسيق روابط الخريطة التفاعلية الجاهزة --- */
+
+/* تنسيق النص المكتوب تحت العنوان الجغرافي */
+.map-text-link {
+    color: #2563eb; /* تلوينه باللون الأزرق الزاهي ليعرف المستخدم أنه رابط */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.map-text-link:hover {
+    text-decoration: underline; /* إظهار خط تحت الرابط عند الحوم فوقه بالماوس */
+}
+
+/* تحويل الرابط السفلي إلى تصميم زر كحلي فخم ومستدير كالصورة تماماً */
+.btn-map-link {
+    background-color: #111e38; /* اللون الكحلي المتناسق للموقع */
+    color: #ffffff;            /* لون الكتابة الأبيض */
+    padding: 12px 25px;
+    border-radius: 25px;       /* حواف بيضاوية دائرية بالكامل كالزر في صورتك */
+    font-size: 13px;
+    font-weight: bold;
+    text-decoration: none;     /* إلغاء الخط السفلي الافتراضي للروابط */
+    display: inline-block;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+}
+
+.btn-map-link:hover {
+    background-color: #1b2e4b; /* تفتيح خفيف تفاعلي عند مرور الماوس */
+    transform: scale(1.05);    /* تكبير خفيف بمقدار 5% لإعطاء لمسة جمالية */
+}
+
+
+
+
+
+
+
+
+
+.search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px; /* عشان تظهر على الشمال في الـ RTL */
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.search-container input {
+    width: 100%;
+    padding: 15px 20px;
+    border-radius: 30px;
+    border: 1px solid #ddd;
+}
+
+
+
+
+
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* هذا السطر هو الذي يجعل الصورة باهتة */
+    /* نضع طبقة لون داكن شفافة فوق الصورة */
+    background: linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)), 
+                url('School-Logo.png'); 
+    
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+
+
+
+
+
+
+
+.alert-bar {
+    background: #f59e0b;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+}
+
+
+
+
+.btn-visitor {
+    display: inline-block;
+    background-color: #f59e0b;
+    color: #0f172a;
+    padding: 10px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-visitor:hover {
+    background-color: #d97706;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+/* تنسيق خلفية صفحة الزائر */
+.visitor-page-body {
+    /* تدرج لوني فخم من الكحلي الداكن إلى الأزرق */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    /* إضافة نمط خفيف (اختياري) */
+    background-attachment: fixed;
+}
+
+/* تحديث الكرت ليظهر بشكل أجمل فوق الخلفية الداكنة */
+.visitor-card {
+    background: rgba(255, 255, 255, 0.95); /* شفافية خفيفة */
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3); /* ظل أقوى ليبرز الكرت */
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    border: 1px solid rgba(245, 158, 11, 0.3); /* إطار ذهبي خفيف */
+}
+
+
+
+/* تنسيق الروابط لتصبح كأزرار أنيقة */
+
+
+
+
+
+
+
+
+.my-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000131;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+
+
+
+
+
+/* تنسيق شبكة التحميلات */
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.download-item {
+    background-color: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #111e38;
+    font-weight: 500;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+}
+
+.download-item:hover {
+    background-color: #0b1c3a;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+
+
+
+
+
+
+
+
+
+
+.add-student-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.add-student-form input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    flex: 1;
+}
+
+.add-btn {
+    background-color: #0b1c3a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.add-btn:hover {
+    background-color: #fca311;
+}
+
+
+
+
+
+
+
+
+
+.fees-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.fee-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.fee-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #0b1c3a;
+    margin-top: 10px;
+}
+
+/* الألوان التي استخدمناها سابقاً */
+.badge-paid { background-color: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+.badge-unpaid { background-color: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 12px; font-size: 12px; }
+
+
+
+
+
+
+
+
+
+/* الأزرار العادية */
+.status-btn { padding: 5px 15px; border-radius: 6px; border: 1px solid #ddd; cursor: pointer; }
+
+/* لون الحاضر عند التفعيل */
+.status-btn.present.active { background-color: #22c55e !important; color: white; border-color: #16a34a; }
+
+/* لون الغائب عند التفعيل */
+.status-btn.absent.active { background-color: #ef4444 !important; color: white; border-color: #dc2626; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* في ملف style.css */
+.site-footer {
+    text-align:  center;
+    padding: 20px;
+    font-size: 14px;
+    color: #666;
+    border-top: 1px solid #ddd;
+    margin-top: 50px;
+}
+
+
+footer {
+    /* تدرج لوني فخم من الكحلي إلى لون أغمق قليلاً */
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    color: #ffffff;
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 4px solid #d18a11; /* خط ذهبي في الأعلى للفخامة */
+    margin-top: 50px;
+}
+
+footer p {
+    font-size: 14px;
+    margin: 10px 0;
+    opacity: 0.8; /* شفافية خفيفة للنص */
+}
+
+footer a {
+    color: #f59e0b; /* اللون الذهبي للروابط داخل الفوتر */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #64748b;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    transition: 0.3s;
+    text-align:  center;
+}
+
+.back-btn:hover {
+    background-color: #475569;
+}
+
+
+

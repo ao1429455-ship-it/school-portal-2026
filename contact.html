@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>اتصل بنا | منصة مدرسة التميز</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="logo">
+                <img src="School-Logo.png" alt="شعار المدرسة" class="header-logo">
+                مدرسة جمال عبدالناصر الرسميه للغات
+            </div>
+            
+            <div class="login-btn"><a href="index.html">الرئيسيه</a></div>
+            <div class="login-btn"><a href="leaders.html">القيادات</a></div>
+            <div class="login-btn"><a href="vision.html">الرؤيه والرساله</a></div>
+            <div class="login-btn"><a href="activities.html">الانشطه</a></div>
+            
+
+            <div class="login-btn"><a href="admission.html">التقديم الالكتروني</a></div>
+            <div class="login-btn"><a href="contact.html">اتصل بنا</a></div>
+            <div class="log-btn"><a href="login.html">تسجيل الدخول</a></div>
+        </div>
+    </header>
+
+    <main class="contact-section">
+        <h1 class="contact-title">تواصل معنا</h1>
+        <p class="contact-subtitle">نحن هنا للإجابة على استفساراتكم وتقديم الدعم الفني</p>
+
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h2>أرسل استفسارك أو شكواك</h2>
+                <form class="contact-form" action="https://formspree.io/f/xykarjvr" method="POST">
+                    <div class="contact-group">
+                        <label>الاسم بالكامل</label>
+                        <input type="text" name="name" placeholder="أدخل اسمك الكريم" required>
+                    </div>
+                    <div class="contact-group">
+                        <label>رقم الهاتف</label>
+                        <input type="tel" name="phone" placeholder="01xxxxxxxxx" required>
+                    </div>
+                    <div class="contact-group">
+                        <label>نوع الرسالة</label>
+                        <select name="type" required>
+                            <option value="">اختر تصنيف الرسالة...</option>
+                            <option value="inquiry">استفسار عام</option>
+                            <option value="complaint">شكوى</option>
+                            <option value="suggestion">اقتراح</option>
+                        </select>
+                    </div>
+                    <div class="contact-group">
+                        <label>نص الرسالة</label>
+                        <textarea name="message" rows="4" placeholder="اكتب تفاصيل استفسارك هنا..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-send">إرسال الرسالة فوراً</button>
+                </form>
+            </div>
+
+            <div class="contact-card direct-info">
+                <h2>قنوات الاتصال المباشرة</h2>
+                <div class="info-item">
+                    <h3>الخط الساخن والدعم</h3>
+                    <p>01065010663 <span class="time-note">(من 8 صباحاً وحتى 4 مساءً)</span></p>
+                </div>
+                <div class="info-item">
+                    <h3>البريد الإلكتروني الرسمي</h3>
+                    <p class="email-text">ao1429455@gmail.com</p>
+                </div>
+                <div class="map-placeholder">
+                    <a href="https://www.google.com/maps/@27.5553432,30.8111015,18z" target="_blank" class="btn-map-link">موقع المدرسة على جوجل ماب</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+  <script>
+  const WHATSAPP_PHONE = '201221493125';
+  const BUTTON_TEXT = {
+    IDLE: 'إرسال الرسالة فوراً',
+    SUBMITTING: '... جاري الإرسال'
+  };
+
+  const contactForm = document.querySelector('.contact-form');
+  const submitButton = contactForm?.querySelector('.btn-send');
+
+  if (contactForm) {
+    contactForm.addEventListener('submit', handleFormSubmit);
+  }
+
+  async function handleFormSubmit(event) {
+    event.preventDefault();
+    
+    setSubmittingState(true);
+
+    const payload = new FormData(contactForm);
+    const endpoint = contactForm.action;
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        body: payload,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (!response.ok) {
+        throw new Error('Server error');
+      }
+
+      alert('تم استلام رسالتك بنجاح، سيتم توجيهك الآن إلى واتساب.');
+      contactForm.reset();
+      redirectToWhatsApp(payload);
+
+    } catch (error) {
+      console.error('Submission failed:', error);
+      alert('نعتذر، حدث خطأ أثناء إرسال البيانات. يرجى التحقق من الشبكة والمحاولة لاحقاً.');
+    } finally {
+      setSubmittingState(false);
+    }
+  }
+
+  function setSubmittingState(isSubmitting) {
+    if (!submitButton) return;
+    submitButton.disabled = isSubmitting;
+    submitButton.innerText = isSubmitting ? BUTTON_TEXT.SUBMITTING : BUTTON_TEXT.IDLE;
+  }
+
+  function redirectToWhatsApp(formData) {
+    const clientName = formData.get('name') || 'غير محدد';
+    const inquiryType = formData.get('type') || 'عام';
+    
+    const messageTemplate = "رسالة جديدة من الموقع\nالاسم: " + clientName + "\nنوع الاستفسار: " + inquiryType;
+    const encodedMessage = encodeURIComponent(messageTemplate);
+    
+    window.location.href = "https://wa.me/" + WHATSAPP_PHONE + "?text=" + encodedMessage;
+  }
+</script>
+    
+<footer class="site-footer">
+    <p>جميع الحقوق محفوظة © مدرسة جمال عبد الناصر الثانوية 2026</p>
+    <p>تم تطوير وإدارة المنصة التقنية بواسطة: 
+        <a href="developer.html" > Renad Ghazy Hasan </a>
+    </p>
+</footer>
+    
+    
+</body>
+</html>

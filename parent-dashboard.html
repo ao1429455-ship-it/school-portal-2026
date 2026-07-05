@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة ولي الأمر الإلكترونية | مدرسة التميز</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+<script>
+  // إعدادات الربط (هتكون خاصة بمشروعك لما تفتحيه في فايربيس)
+  const firebaseConfig = {
+    databaseURL: "https://school-platform-f9f4a-default-rtdb.firebaseio.com/"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
+
+    
+</head>
+<body class="dashboard-body">
+
+    <!-- القائمة الجانبية (فضاء ولي الأمر) -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>عزيزي ولي الامر</h2>
+            <div class="student-avatar-box">
+                <div class="avatar-circle"></div>
+                <h3 id="sidebarParentName">جاري التحميل...</h3>
+                <span class="student-grade" id="studentNameDisplay">جاري التحميل...</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="active">لوحة المتابعة</a></li>
+                <li><a href="#"class="active">نتائج ومستوى الابن</a></li>
+                <li><a href="#"class="active">المتابعة الطبية</a></li>
+                <li><a href="#"class="active">المصروفات المدرسية</a></li>
+                <li class="logout-item"><a href="login.html" onclick="localStorage.clear();">تسجيل الخروج</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- المحتوى الرئيسي للوحة المتابعة -->
+    <main class="dashboard-content">
+        
+        <header class="content-header">
+            <h1 id="parentWelcomeMessage">مرحباً بك يا سيد! 🪶</h1>
+            <span class="current-day-badge blue-badge">بوابة المتابعة الأبوية الآمنة</span>
+        </header>
+
+        <section class="dashboard-stats-grid">
+            <div class="dash-stat-card border-green">
+                <span class="stat-val-num text-green" id="attendanceStatus">جاري التحميل...</span>
+                <p>حالة حضور الابن بالمدرسة</p>
+            </div>
+            <div class="dash-stat-card border-blue">
+                <span class="stat-val-num text-blue-dark">93.5%</span>
+                <p>المعدل الدراسي العام للابن</p>
+            </div>
+            <div class="dash-stat-card border-yellow full-width-card flex-row-card">
+                <span class="stat-val-num text-green">✅ سليم</span>
+                <p>آخر فحص بالعيادة المدرسية</p>
+            </div>
+        </section>
+
+        <!-- جدول علامات اختبارات الطالب -->
+        <section class="dashboard-section-block">
+            <h2 id="reportTitle">تقرير علامات اختبارات الطالب</h2>
+            <table class="dashboard-table aligned-right-table">
+                <thead>
+                    <tr>
+                        <th>المادة</th>
+                        <th>درجة الاختبار</th>
+                        <th>التقدير العام</th>
+                    </tr>
+                </thead>
+                <tbody id="gradesBody">
+                    <!-- سيتم ملء البيانات هنا تلقائياً -->
+                </tbody>
+            </table>
+        </section>
+
+        <!-- السجل الطبي -->
+        <section class="dashboard-section-block">
+            <h2>السجل الطبي والملف الصحي للطالب من العيادة المدرسية</h2>
+            <div class="medical-grid-info">
+                <!-- ضيفي هذا السطر في المكان المناسب في صفحة ولي الأمر -->
+<div id="healthDisplay"></div>
+
+                
+        </section>
+
+        <!-- المصروفات -->
+        <footer class="dashboard-section-block">
+            <h2>الرسوم والمصروفات المدرسية</h2>
+            <div class="fees-container">
+                <div class="fee-row"><span>القسط الأول:</span><span class="badge-paid">تم الدفع</span></div>
+                <div class="fee-row"><span>القسط الثاني:</span><span class="badge-unpaid">مستحق الدفع</span></div>
+                <div class="fee-total"><span>إجمالي المتبقي:</span><strong>2000 ج.م</strong></div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+   
+    const userRole = localStorage.getItem('userRole');
+    const studentCode = localStorage.getItem('studentCode');
+
+    if (!studentCode || userRole !== 'parent') {
+        alert("عذراً، يجب عليك تسجيل الدخول كـ (ولي أمر) للوصول لهذه الصفحة.");
+        window.location.href = 'login.html';
+    }
+
+    
+    window.addEventListener('DOMContentLoaded', function() {
+        
+        database.ref('students/' + studentCode).on('value', function(snapshot) {
+            const data = snapshot.val();
+            if (data) {
+                
+                const sidebarParentName = document.getElementById('sidebarParentName');
+                const studentNameDisplay = document.getElementById('studentNameDisplay');
+                const parentWelcomeMessage = document.getElementById('parentWelcomeMessage');
+
+                if (sidebarParentName) sidebarParentName.innerText = "مرحباً ولي الأمر"; 
+                if (studentNameDisplay) studentNameDisplay.innerText = "ولي أمر الطالب: " + data.name;
+                if (parentWelcomeMessage) parentWelcomeMessage.innerText = "مرحباً بك يا سيد (ولي أمر " + data.name + ")";
+
+                
+                if (data.attendance) {
+                    const badge = document.getElementById('attendanceStatus');
+                    if (badge) {
+                        badge.innerText = data.attendance;
+                        badge.style.color = (data.attendance === "غائب") ? "red" : "green";
+                    }
+                }
+
+                
+                const health = data.healthRecord;
+                const healthSection = document.getElementById('healthDisplay');
+                if (health && healthSection) {
+                    const blood = health.bloodType || 'غير محدد';
+                    const allergy = health.allergies || 'لا يوجد';
+                    const chronic = health.chronic || 'لا يوجد';
+
+                    healthSection.innerHTML = 
+                        '<div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-top: 20px; border-right: 4px solid #28a745;">' +
+                            '<h4 style="margin-top: 0;">🏥 السجل الطبي للطالب</h4>' +
+                            '<p>🩸 فصيلة الدم: <strong>' + blood + '</strong></p>' +
+                            '<p>⚠️ الحساسية: <strong>' + allergy + '</strong></p>' +
+                            '<p>🩺 ملاحظات طبية: <strong>' + chronic + '</strong></p>' +
+                        '</div>';
+                }
+            }
+        });
+
+        
+        database.ref('students/' + studentCode + '/grades/').on('value', function(snapshot) {
+            const gradesBody = document.getElementById('gradesBody');
+            if (!gradesBody) return;
+            gradesBody.innerHTML = ''; 
+            
+            if (snapshot.exists()) {
+                snapshot.forEach(function(child) {
+                    const data = child.val();
+                    const subjectName = child.key;
+                    const score = data.score || 0;
+                    const badgeClass = score >= 90 ? 'excellent' : 'very-good';
+                    const badgeText = score >= 90 ? 'ممتاز' : 'جيد';
+
+                    const row = '<tr>' +
+                                '<td>' + subjectName + '</td>' +
+                                '<td>100</td>' +
+                                '<td>' + score + '</td>' +
+                                '<td><span class="grade-badge ' + badgeClass + '">' + badgeText + '</span></td>' +
+                                '</tr>';
+
+                    gradesBody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+        });
+    });
+</script>
+
+
+</body>
+</html>
+ 

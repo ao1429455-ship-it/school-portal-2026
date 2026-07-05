@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المكتبة الرقمية | منصة مدرسة التميز</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="logo"><img src="School-Logo.png" class="header-logo"> مدرسة جمال عبدالناصر الرسميه للغات</div>
+            <div class="login-btn"><a href="index.html">الرئيسيه</a></div>
+            <div class="login-btn"><a href="library.html" id="libraryLink" style="display: none;">المكتبه الالكترونيه</a></div>
+        </div>
+    </header>
+
+    <main class="library-section">
+        <h1 class="library-title">المكتبة المدرسية الرقمية</h1>
+        
+        <!-- زر إضافة الكتاب (يظهر للمدرس فقط) -->
+        <div id="adminControls" style="text-align: center; margin-bottom: 20px; display: none;">
+            <button onclick="document.getElementById('addBookModal').style.display='flex'" class="btn-borrow" style="background:#e67e22;">➕ إضافة كتاب جديد</button>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="bookSearch" placeholder="ابحث باسم الكتاب أو اسم المؤلف..." onkeyup="filterBooks()">
+        </div>
+
+        <div class="books-grid" id="booksGrid">
+            <!-- الكتب هتظهر هنا تلقائياً -->
+        </div>
+    </main>
+
+    <!-- نافذة إضافة كتاب (للمدرس) -->
+    <div id="addBookModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:20px; border-radius:10px; width:90%; max-width:400px; text-align:right;">
+            <h3>إضافة كتاب جديد</h3>
+            <input type="text" id="newTitle" placeholder="اسم الكتاب" style="width:100%; margin-bottom:10px; padding:8px;">
+            <input type="text" id="newAuthor" placeholder="اسم المؤلف" style="width:100%; margin-bottom:10px; padding:8px;">
+            <button onclick="saveBook()" style="width:100%; padding:10px; background:#e67e22; color:white; border:none;">حفظ الكتاب</button>
+            <button onclick="document.getElementById('addBookModal').style.display='none'" style="width:100%; padding:10px; background:#ccc; margin-top:5px; border:none;">إلغاء</button>
+        </div>
+    </div>
+
+    <!-- نافذة الاستعارة (للطالب) -->
+    <div id="borrowModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center;">
+        <div style="background:#fff; padding:20px; border-radius:10px; width:90%; max-width:400px; text-align:right;">
+            <h3>تأكيد استعارة الكتاب</h3>
+            <input type="text" id="modalName" placeholder="الاسم الرباعي" required style="width:100%; margin-bottom:10px; padding:8px;">
+            <input type="text" id="modalNational" placeholder="الرقم القومي" required style="width:100%; margin-bottom:10px; padding:8px;">
+            <input type="tel" id="modalPhone" placeholder="رقم الموبايل" required style="width:100%; margin-bottom:10px; padding:8px;">
+            <button onclick="submitBorrow()" style="width:100%; padding:10px; background:#10b981; color:white; border:none;">إرسال الطلب</button>
+        </div>
+    </div>
+
+<script>
+    let currentBook = "";
+
+    // تحميل الكتب عند فتح الصفحة
+    window.onload = function() {
+        if (!localStorage.getItem('studentCode') && localStorage.getItem('role') !== 'teacher') {
+            alert("يجب تسجيل الدخول أولاً");
+            window.location.href = 'index.html';
+        }
+        if (localStorage.getItem('role') === 'teacher') {
+            document.getElementById('adminControls').style.display = 'block';
+        }
+        renderBooks();
+    };
+
+    function renderBooks() {
+        const grid = document.getElementById('booksGrid');
+        const books = JSON.parse(localStorage.getItem('myBooks') || "[]");
+        grid.innerHTML = "";
+        books.forEach((book, index) => {
+            grid.innerHTML += `
+                <div class="book-card">
+                    <div class="book-info">
+                        <h3>${book.title}</h3>
+                        <p>المؤلف: ${book.author}</p>
+                        <button class="btn-borrow" onclick="openBorrowModal('${book.title}')">حجز استعارة</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+
+    function saveBook() {
+        const title = document.getElementById('newTitle').value;
+        const author = document.getElementById('newAuthor').value;
+        if(!title || !author) return alert("يرجى إدخال بيانات الكتاب");
+        
+        let books = JSON.parse(localStorage.getItem('myBooks') || "[]");
+        books.push({title, author});
+        localStorage.setItem('myBooks', JSON.stringify(books));
+        alert("تم إضافة الكتاب!");
+        document.getElementById('addBookModal').style.display = 'none';
+        renderBooks();
+    }
+
+    function openBorrowModal(title) { 
+        currentBook = title; 
+        document.getElementById('borrowModal').style.display = 'flex'; 
+    }
+    
+    async function submitBorrow() {
+        const studentName = document.getElementById('modalName').value;
+        const nationalId = document.getElementById('modalNational').value;
+        const phone = document.getElementById('modalPhone').value;
+
+        if (!studentName || !nationalId || !phone) {
+            alert("يرجى ملء جميع البيانات!");
+            return;
+        }
+
+        // 1. إرسال الإيميل عبر Formspree
+        const formspreeUrl = "https://formspree.io/f/xykarjvr"; // ضعي رابط الفورمسبري الخاص بكِ هنا
+        
+        fetch(formspreeUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                studentName: studentName,
+                nationalId: nationalId,
+                phone: phone,
+                bookTitle: currentBook
+            })
+        });
+
+        // 2. إرسال واتساب
+        const message = `طلب استعارة جديد:%0A` +
+                        `اسم الطالب: ${studentName}%0A` +
+                        `الكتاب: ${currentBook}%0A` +
+                        `الرقم القومي: ${nationalId}%0A` +
+                        `رقم الموبايل: ${phone}`;
+
+        const teacherPhone = "201065010663"; 
+        window.open(`https://wa.me/${teacherPhone}?text=${message}`, '_blank');
+        
+        alert("✅ تم إرسال الطلب عبر الإيميل وجاري فتح واتساب للمتابعة!");
+        document.getElementById('borrowModal').style.display = 'none';
+        
+        // مسح البيانات
+        document.getElementById('modalName').value = "";
+        document.getElementById('modalNational').value = "";
+        document.getElementById('modalPhone').value = "";
+    }
+</script>
+
+
+<footer style="text-align: center; padding: 20px; font-size: 0.8rem; border-top: 1px solid #333; margin-top: 50px;">
+    <p>جميع الحقوق محفوظة © مدرسة جمال عبد الناصر الثانوية 2026</p>
+    <p>تم تطوير وإدارة المنصة التقنية بواسطة: 
+        <a href="developer.html" style="color: #6366f1; text-decoration: none; font-weight: bold;"> Renad Ghazy Hasan </a>
+    </p>
+</footer>
+
+
+
+
+
+</body>
+</html>

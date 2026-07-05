@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل الدخول | منصة المدرسة الذكية</title>
+    <link rel="stylesheet" href="style.css">
+    
+    
+    
+    
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+<script>
+  
+  const firebaseConfig = {
+    databaseURL: "https://school-platform-f9f4a-default-rtdb.firebaseio.com/"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
+
+    
+    
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <h1 class="login-main-title">بوابة الدخول الموحدة</h1>
+        <p class="login-subtitle">مرحباً بك مجدداً في مدرسة التميز</p>
+
+        <form id="loginForm" class="login-main-form">
+            
+            <div class="login-field-group">
+                <label>نوع الحساب</label>
+                <select id="accountType" required>
+                    <option value="">اختر صلاحية الدخول...</option>
+                    <option value="student">طالب</option>
+                    <option value="teacher">معلم</option>
+                    <option value="parent">ولي أمر</option>
+                    <option value="admin">إدارة</option>
+                    <option value="doctor"> الدكتور</option>
+                    
+                    
+                    
+                    
+                    
+                </select>
+            </div>
+
+            <div class="login-field-group">
+                <label for="usernameInput">اسم المستخدم / كود الطالب</label>
+                <input type="text" id="usernameInput" placeholder="أدخل اسم المستخدم" required>
+            </div>
+
+            <div class="login-field-group">
+                <label for="passwordInput">كلمة المرور</label>
+                <input type="password" id="passwordInput" placeholder="أدخل كلمة المرور" required>
+            </div>
+
+            <button type="submit" class="btn-login-submit">دخول آمن</button>
+           <a href="index.html" class="my-button">اضغط هنا للرجوع</a>
+           
+
+
+
+
+
+        </form>
+    </div>
+
+    <script>
+  const loginForm = document.getElementById('loginForm');
+
+  if (loginForm) {
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('usernameInput').value.trim();
+      const password = document.getElementById('passwordInput').value.trim();
+      const accountType = document.getElementById('accountType').value;
+
+      
+      if (accountType === 'admin') {
+        if (username === 'school_manager_2026' && password === 'S@fety_System_99#') {
+          localStorage.setItem('userRole', 'admin');
+          localStorage.setItem('loggedInUser', username);
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          alert('❌بيانات الإدارة غير صحيحة');
+        }
+      } 
+      
+    
+      else if (accountType === 'teacher') {
+        database.ref('teachers/' + username).once('value', function(snapshot) {
+          if (snapshot.exists()) {
+            const teacher = snapshot.val();
+            const dbPass = String(teacher.password).trim();
+            const inputPass = String(password).trim();
+
+            if (dbPass === inputPass) {
+              localStorage.setItem('teacherName', teacher.name);
+              localStorage.setItem('loggedInUser', username);
+
+              if (username === 'library_admin') {
+                localStorage.setItem('role', 'teacher');
+                window.location.href = 'library.html';
+              } else {
+                localStorage.removeItem('role');
+                window.location.href = 'teacher-dashboard.html';
+              }
+            } else {
+              alert('❌كلمة المرور غير صحيحة');
+            }
+          } else {
+            alert('❌هذا المستخدم غير مسجل كمعلم');
+          }
+        });
+      } 
+      
+      
+      else if (accountType === 'student' || accountType === 'parent') {
+        database.ref('students/' + username).once('value', function(snapshot) {
+          if (snapshot.exists()) {
+            const student = snapshot.val();
+            const dbPass = String(student.password).trim();
+            const inputPass = String(password).trim();
+
+            if (dbPass === inputPass) {
+              localStorage.setItem('userRole', accountType);
+              localStorage.setItem('loggedInUser', student.name);
+              localStorage.setItem('studentCode', username);
+
+              if (accountType === 'parent') {
+                window.location.href = 'parent-dashboard.html';
+              } else {
+                window.location.href = 'student-dashboard.html';
+              }
+            } else {
+              alert('❌الكود أو كلمة المرور خطأ');
+            }
+          } else {
+            alert('❌هذا الحساب غير مسجل');
+          }
+        });
+      } 
+
+      
+      else if (accountType === 'doctor') {
+        database.ref('doctors/' + username).once('value', function(snapshot) {
+          if (snapshot.exists()) {
+            const doctorData = snapshot.val();
+            
+            if (String(doctorData.password).trim() === String(password).trim()) {
+              localStorage.setItem('userRole', 'doctor');
+              localStorage.setItem('loggedInUser', doctorData.name);
+              localStorage.removeItem('role');
+              window.location.href = 'clinic-dashboard.html';
+            } else {
+              alert('❌كلمة المرور غير صحيحة');
+            }
+          } else {
+            alert('❌هذا المستخدم غير مسجل كطبيب');
+          }
+        });
+      }
+    });
+  }
+</script>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

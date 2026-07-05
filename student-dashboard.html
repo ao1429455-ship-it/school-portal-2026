@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة الطالب الإلكترونية | لوحة التحكم</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database-compat.js"></script>
+
+<script>
+  
+  const firebaseConfig = {
+    databaseURL: "https://school-platform-f9f4a-default-rtdb.firebaseio.com/"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const database = firebase.database();
+</script>
+
+    
+</head>
+<body class="dashboard-body">
+
+   
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>عزيزي الطالب</h2>
+            <div class="student-avatar-box">
+                <div class="avatar-circle"></div>
+                <h3 id="sidebarStudentName">جاري التحميل...</h3>
+                <span class="student-grade">الصف الأول الثانوي - شعبة أ</span>
+            </div>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="active">لوحة التحكم</a></li>
+                <li><a href="#"class="active">جدول الحصص</a></li>
+                <li><a href="#"class="active">نتائج الامتحانات</a></li>
+                <li><a href="#" class="active">المناهج والواجبات</a></li>
+                <li><a href="library.html"class="active">المكتبه المدرسيه</a></li>
+                <li class="logout-item"><a href="login.html" onclick="localStorage.clear();">تسجيل الخروج</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    
+    <main class="dashboard-content" >
+        <header class="content-header">
+            <h1 id="welcomeMessage">مرحباً بك مجدداً!</h1>
+            <span class="current-day-badge">اليوم الدراسي الحالي</span>
+        </header>
+
+       
+        <section class="dashboard-stats-grid">
+            <div class="dash-stat-card">
+                <span class="stat-val-num">95%</span>
+                <p>نسبة الحضور لهذا الشهر</p>
+            </div>
+            <div class="dash-stat-card">
+                <span class="stat-val-num">3</span>
+                <p>واجبات معلقة مطلوبة</p>
+            </div>
+            <div class="dash-stat-card">
+                <span class="stat-val-num text-orange">+150</span>
+                <p>نقاط التميز السلوكي</p>
+            </div>
+        </section>
+
+       
+        <section class="dashboard-section-block">
+            <h2>جدول الحصص اليومي</h2>
+            <div class="schedule-timeline">
+                <div class="schedule-item">
+                    <span class="time">الحصة الأولى (8:00)</span>
+                    <span class="subject badge-blue">الرياضيات</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">الحصة الثانية (9:00)</span>
+                    <span class="subject badge-purple">اللغة الإنجليزية</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">الحصة الثالثة (10:00)</span>
+                    <span class="subject badge-cyan">الفيزياء</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">(11:00)</span>
+                    <span class="subject text-gray">استراحة ممتعة</span>
+                </div>
+                <div class="schedule-item">
+                    <span class="time">الحصة الرابعة (11:30)</span>
+                    <span class="subject badge-orange">اللغة العربية</span>
+                </div>
+            </div>
+        </section>
+        
+        
+        <section class="dashboard-section-block">
+    <h2>سجلي الصحي في العيادة</h2>
+    <div id="healthDisplay" style="background: #e7f3ff; padding: 15px; border-radius: 10px;">
+        جاري تحميل البيانات الصحية...
+    </div>
+</section>
+
+        
+        
+        
+
+        
+<section class="dashboard-section-block">
+    <h2>تقرير درجات منتصف العام</h2>
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>المادة الدراسية</th>
+                <th>الدرجة الكبرى</th>
+                <th>الدرجة التي حصلت عليها</th>
+                <th>التقدير العام</th>
+            </tr>
+        </thead>
+        <tbody id="gradesBody">
+            
+        </tbody>
+    </table>
+</section>
+
+
+        <footer class="dashboard-section-block download-center">
+    <h2>مركز التحميلات وأوراق العمل</h2>
+    <div class="downloads-grid">
+        <a href="#" class="download-item">📄 ورقة عمل الرياضيات - الوحدة الأولى</a>
+        <a href="#" class="download-item">📄 مذكرات الفيزياء - الجزء الثاني</a>
+        <a href="#" class="download-item">📄 واجبات اللغة الإنجليزية</a>
+    </div>
+</footer>
+
+    </main>
+<script>
+    
+    if (!localStorage.getItem('studentCode')) {
+        alert("يرجى تسجيل الدخول بكود الطالب أولاً.");
+        window.location.href = 'login.html';
+    }
+    
+    
+    window.addEventListener('DOMContentLoaded', function() {
+        const studentCode = localStorage.getItem('studentCode'); 
+        
+        
+        database.ref('students/' + studentCode).on('value', function(snapshot) {
+            const data = snapshot.val();
+            if (data) {
+                const welcomeMsg = document.getElementById('welcomeMessage');
+                const sidebarName = document.getElementById('sidebarStudentName');
+                
+                if (welcomeMsg) {
+                    welcomeMsg.innerText = 'أهلاً بك يا ' + data.name + '!';
+                }
+                if (sidebarName) {
+                    sidebarName.innerText = data.name;
+                }
+            }
+        });
+
+       
+        database.ref('students/' + studentCode + '/grades/').on('value', function(snapshot) {
+            const gradesBody = document.getElementById('gradesBody');
+            if (!gradesBody) return;
+            
+            gradesBody.innerHTML = ''; 
+            
+            if (snapshot.exists()) {
+                snapshot.forEach(function(child) {
+                    const subject = child.key;
+                    const data = child.val();
+                    const score = parseFloat(data.score) || 0;
+                    const badgeClass = score >= 90 ? 'excellent' : 'very-good';
+                    const badgeText = score >= 90 ? 'ممتاز' : 'جيد';
+                    
+                   
+                    const row = '<tr>' +
+                                '<td>' + subject + '</td>' +
+                                '<td>100</td>' +
+                                '<td>' + score + '</td>' +
+                                '<td><span class="grade-badge ' + badgeClass + '">' + badgeText + '</span></td>' +
+                                '</tr>';
+                    
+                    gradesBody.insertAdjacentHTML('beforeend', row);
+                });
+            } else {
+                gradesBody.innerHTML = '<tr><td colspan="4">لا توجد نتائج مرصودة حالياً</td></tr>';
+            }
+        });
+
+        
+        database.ref('students/' + studentCode + '/healthRecord').on('value', function(snapshot) {
+            const health = snapshot.val();
+            const healthDisplay = document.getElementById('healthDisplay');
+            
+            if (health && healthDisplay) {
+                const blood = health.bloodType || 'غير محدد';
+                const allergy = health.allergies || 'لا يوجد';
+                const chronic = health.chronic || 'لا يوجد';
+
+                healthDisplay.innerHTML = 
+                    '<p>🩸 فصيلة الدم: <strong>' + blood + '</strong></p>' +
+                    '<p>⚠️ الحساسية: <strong>' + allergy + '</strong></p>' +
+                    '<p>🩺 حالات مزمنة: <strong>' + chronic + '</strong></p>';
+            } else if (healthDisplay) {
+                healthDisplay.innerHTML = "لا توجد سجلات صحية مسجلة حالياً.";
+            }
+        });
+    });
+</script>
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
